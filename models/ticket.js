@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataType) => {
+module.exports = (sequelize, DataType, models) => {
 
     const Ticket = sequelize.define("ticket", {
         numero_ticket: {
@@ -17,6 +17,30 @@ module.exports = (sequelize, DataType) => {
             allowNull: false,
             validate: {
                 notEmpty: true
+            }
+        },
+
+        servicoId: {
+            type: DataType.INTEGER,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            },
+            references: {
+                model: "relacionamento_emp_svcs",
+                key: "servicoId"
+            }
+        },
+
+        empresaId: {
+            type: DataType.INTEGER,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            },
+            references: {
+                model: "relacionamento_emp_svcs",
+                key: "empresaId"
             }
         }
     }, {
@@ -38,4 +62,4 @@ module.exports = (sequelize, DataType) => {
         }
     })
     return Ticket;
-}
+};

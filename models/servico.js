@@ -44,7 +44,6 @@ module.exports = (sequelize, DataType) => {
                     foreignKey: {
                         allowNull: false
                     }
-                    //onDelete: 'CASCADE'
                 });
                 Servico.belongsToMany(models.empresa, { through: models.relacionamento_emp_svc });
             }
