@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataType, models) => {
+module.exports = (sequelize, DataType) => {
 
     const Ticket = sequelize.define("ticket", {
         numero_ticket: {
@@ -18,30 +18,6 @@ module.exports = (sequelize, DataType, models) => {
             validate: {
                 notEmpty: true
             }
-        },
-
-        servicoId: {
-            type: DataType.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            },
-            references: {
-                model: "relacionamento_emp_svcs",
-                key: "servicoId"
-            }
-        },
-
-        empresaId: {
-            type: DataType.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            },
-            references: {
-                model: "relacionamento_emp_svcs",
-                key: "empresaId"
-            }
         }
     }, {
         classMethods: {
@@ -50,13 +26,26 @@ module.exports = (sequelize, DataType, models) => {
                     foreignKey: {
                         allowNull: false
                     }
-                    //onDelete: 'CASCADE'
                 });
                 Ticket.hasOne(models.atendimento, {
                     foreignKey: {
                         allowNull: false
                     }
                     //onDelete: 'CASCADE'
+                });
+                Ticket.belongsTo(models.relacionamento_emp_svc, {
+                  foreignKey: {
+                      name: "empresaId",
+                      allowNull: false
+                  },
+                    targetKey: "empresaId"
+                });
+                Ticket.belongsTo(models.relacionamento_emp_svc, {
+                    foreignKey: {
+                        name: "servicoId",
+                        allowNull: false
+                    },
+                    targetKey: "servicoId"
                 });
             }
         }
