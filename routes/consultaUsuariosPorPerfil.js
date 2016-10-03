@@ -8,7 +8,7 @@ module.exports = app => {
                     where: {
                         id: req.params.id
                     },
-                    attributes: ['nome'],
+                    attributes: ['nome', 'status_ativacao'],
                     include: [{
                         model: Usuario,
                         attributes: ['id', 'nome', 'email']
