@@ -152,8 +152,8 @@ module.exports = (sequelize, DataType) => {
                     }
                     //onDelete: 'CASCADE'
                 });
-                Empresa.belongsToMany(models.servico, { through: models.relacionamento_emp_svc });
-                Empresa.hasMany(models.usuario);
+                Empresa.belongsToMany(models.servico, { through: models.relacionamento_emp_svc }); //atraves da tabela de relacionamento_emp_svc
+                Empresa.hasMany(models.usuario); //Uma empresa tem varios usuarios
             }
         }
     })

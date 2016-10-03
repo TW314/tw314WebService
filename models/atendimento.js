@@ -1,18 +1,18 @@
 module.exports = (sequelize, DataType) => {
 
-    const Atendimento = sequelize.define("atendimento", {
+    const Atendimento = sequelize.define("atendimento", { //criando a tabela no banco, ocorre quando o sequelize faz uma sincronizacao com o boot
 
         id: {
-            type: DataType.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+            type: DataType.INTEGER, //tipo do campo
+            primaryKey: true, //chave primaria
+            autoIncrement: true //com autoincremento
         },
 
         data_hora_inicio: {
-            type: DataType.DATE,
-            defaultValue: DataType.NOW,
-            allowNull: false,
-            validate: {
+            type: DataType.DATE, //tipo do campo
+            defaultValue: DataType.NOW, //data atual
+            allowNull: false, //nao permite valores nulos
+            validate: { //verifica se a data nao eh vazia
                 notEmpty: true
             }
         },
@@ -23,8 +23,8 @@ module.exports = (sequelize, DataType) => {
 
     }, {
         classMethods: {
-            associate: (models) => {
-                Atendimento.belongsTo(models.ticket, {
+            associate: (models) => { //permite realizar uma associacao entre os modelos
+                Atendimento.belongsTo(models.ticket, { //estabelecendo o relacionamento
                     foreignKey: {
                         allowNull: false
                     }

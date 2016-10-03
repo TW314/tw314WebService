@@ -1,11 +1,11 @@
 module.exports = app => {
   const Perfil = app.db.models.perfil;
 
-  app.route("/perfil")
+  app.route("/perfil") //middelware de pre-execucao das rotas
     .get((req, res) => {
       Perfil.findAll({})
-      .then(result => res.json(result))
-      .catch(error => {
+      .then(result => res.json(result)) //resultado da pesquisa
+      .catch(error => { //se der algum erro
         res.status(412).json({msg: error.message});
       });
     })
