@@ -8,10 +8,14 @@ module.exports = app => {
                     where: {
                         id: req.params.id
                     },
-                    attributes: ['nome', 'status_ativacao'],
+                    attributes: ['nome'],
                     include: [{
                         model: Usuario,
-                        attributes: ['id', 'nome', 'email']
+                        attributes: ['id', 'nome', 'email', 'status_ativacao'],
+                        include: [{
+                            model: Empresa,
+                            attributes: ['id', 'razao_social', 'status_ativacao']
+                        }]
                     }]
                 })
                 .then(result => {

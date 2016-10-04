@@ -11,7 +11,7 @@ module.exports = app => {
                     attributes: ['nome', 'email', 'status_ativacao'],
                     include: [{
                         model: Empresa,
-                        attributes: ['id', 'razao_social']
+                        attributes: ['id', 'razao_social', 'status_ativacao']
                     }, {
                         model: Perfil,
                         attributes: ['id', 'nome']
