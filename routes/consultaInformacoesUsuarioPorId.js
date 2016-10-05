@@ -2,7 +2,7 @@ module.exports = app => {
     const Usuario = app.db.models.usuario;
     const Perfil = app.db.models.perfil;
     const Empresa = app.db.models.empresa;
-    app.route("/consultaUsuarioPorId/:id")
+    app.route("/consultaInformacoesUsuarioPorId/:id")
         .get((req, res) => {
             Usuario.findOne({
                     where: {

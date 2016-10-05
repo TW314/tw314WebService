@@ -1,7 +1,7 @@
 module.exports = app => {
     const Servico = app.db.models.servico;
     const RamoAtividade = app.db.models.ramo_atividade;
-    app.route("/consultaServico/")
+    app.route("/consultaInformacoesServico/")
         .get((req, res) => {
             Servico.findAll({
                     where: {},

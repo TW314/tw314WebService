@@ -4,7 +4,7 @@ module.exports = app => {
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
     const Empresa = app.db.models.empresa;
-    app.route("/consultaRamoAtividade/")
+    app.route("/consultaInformacoesRamoAtividade/")
         .get((req, res) => {
             RamoAtividade.findAll({
                     attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos'],
