@@ -6,14 +6,10 @@ module.exports = app => {
     app.route("/consultaRamoAtividade/")
         .get((req, res) => {
             RamoAtividade.findAll({
-                    //attributes: ['id', 'nome', 'descricao', 'status_ativacao'],
+                    attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos']],
                     include: [{
                         model: Servico,
-                        attributes: {
-                            include: [
-                                [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'total']
-                            ]
-                        }
+                        attributes: []
                     }],
                     group: ['id', 'nome', 'descricao', 'status_ativacao']
                 })
