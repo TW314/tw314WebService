@@ -4,7 +4,7 @@ module.exports = app => {
     const Perfil = app.db.models.perfil;
     app.route("/consultaUsuariosPorPerfil/:id")
         .get((req, res) => {
-            Perfil.findAll({
+            Perfil.find({
                     where: {
                         id: req.params.id
                     },

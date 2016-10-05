@@ -3,12 +3,18 @@ const Sequelize = require('sequelize');
 module.exports = app => {
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
+    const Empresa = app.db.models.empresa;
     app.route("/consultaRamoAtividade/")
         .get((req, res) => {
             RamoAtividade.findAll({
-                    attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos']],
+                    attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos'],
+                        [Sequelize.fn('COUNT', Sequelize.col('empresas.id')), 'numeroEmpresas']
+                    ],
                     include: [{
                         model: Servico,
+                        attributes: []
+                    }, {
+                        model: Empresa,
                         attributes: []
                     }],
                     group: ['id', 'nome', 'descricao', 'status_ativacao']
@@ -29,10 +35,19 @@ module.exports = app => {
 
     app.route("/consultaRamoAtividade/:id")
         .get((req, res) => {
-            RamoAtividade.find({
-                    where: {
-                        id: req.params.id
-                    }
+            RamoAtividade.findOne({
+                    where: {id: req.params.id},
+                    attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos'],
+                        [Sequelize.fn('COUNT', Sequelize.col('empresas.id')), 'numeroEmpresas']
+                    ],
+                    include: [{
+                        model: Servico,
+                        attributes: []
+                    }, {
+                        model: Empresa,
+                        attributes: []
+                    }],
+                    group: ['id', 'nome', 'descricao', 'status_ativacao']
                 })
                 .then(result => {
                     if (result) {
