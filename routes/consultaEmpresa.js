@@ -3,7 +3,7 @@ module.exports = app => {
     const RamoAtividade = app.db.models.ramo_atividade;
     app.route("/consultaEmpresa/")
         .get((req, res) => {
-            Empresa.find({
+            Empresa.findAll({
                     where: {},
                     attributes: {
                         exclude: ['ramoAtividadeId']
