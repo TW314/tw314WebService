@@ -5,7 +5,6 @@ module.exports = app => {
 
 exports.list = callback => {
 
-
     Empresa.findAll({
             where: {},
             attributes: {

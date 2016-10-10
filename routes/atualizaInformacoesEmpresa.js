@@ -1,4 +1,5 @@
 module.exports = app => {
+  const Empresa = app.db.models.empresa;
 
   app.route("/atualizaInforacoesEmpresa/:id")
     .put((req, res) => {
