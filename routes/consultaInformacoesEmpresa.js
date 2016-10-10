@@ -1,40 +1,21 @@
 module.exports = app => {
 
-    //const controllers = app.controllers.consultaInformacoesEmpresaController;
-    const controllers = require("../controllers/consultaInformacoesEmpresaController.js");
+    const controllers = app.controllers.consultaInformacoesEmpresaController;
+    
+    const Empresa = app.db.models.empresa;
+    const RamoAtividade = app.db.models.ramo_atividade;
 
     app.route("/consultaInformacoesEmpresa/")
         .get((req, res) => {
-            controllers.list(resp => {
+            controllers.list(Empresa, RamoAtividade, (resp) => {
                 res.json(resp)
             });
         });
 
-    app.route("/consultaEmpresa/:id")
+    app.route("/consultaInformacoesEmpresa/:id")
         .get((req, res) => {
-            Empresa.findOne({
-                    where: {
-                        id: req.params.id
-                    },
-                    attributes: {
-                        exclude: ['ramoAtividadeId']
-                    },
-                    include: [{
-                        model: RamoAtividade,
-                        attributes: ['id', 'nome']
-                    }]
-                })
-                .then(result => {
-                    if (result) {
-                        res.json(result);
-                    } else {
-                        res.sendStatus(404);
-                    }
-                })
-                .catch(error => {
-                    res.status(412).json({
-                        msg: error.message
-                    });
-                });
+            controllers.empresa(req.params.id, Empresa, RamoAtividade, (resp) => {
+                res.json(resp)
+            });
         });
 };
