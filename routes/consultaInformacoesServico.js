@@ -1,55 +1,18 @@
 module.exports = app => {
-    const Servico = app.db.models.servico;
-    const RamoAtividade = app.db.models.ramo_atividade;
+
+    const controllers = app.controllers.consultaInformacoesServicoController;
+
     app.route("/consultaInformacoesServico/")
         .get((req, res) => {
-            Servico.findAll({
-                    where: {},
-                    attributes: {
-                        exclude: ['ramoAtividadeId']
-                    },
-                    include: [{
-                        model: RamoAtividade,
-                        attributes: ['id', 'nome', 'status_ativacao']
-                    }]
-                })
-                .then(result => {
-                    if (result) {
-                        res.json(result);
-                    } else {
-                        res.sendStatus(404);
-                    }
-                })
-                .catch(error => {
-                    res.status(412).json({
-                        msg: error.message
-                    });
-                });
+            controllers.list(app, resp => {
+                res.json(resp)
+            });
         });
 
-    app.route("/consultaServico/:id")
+    app.route("/consultaInformacoesServico/:id")
         .get((req, res) => {
-            Servico.find({
-                    where: {id: req.params.id},
-                    attributes: {
-                        exclude: ['ramoAtividadeId']
-                    },
-                    include: [{
-                        model: RamoAtividade,
-                        attributes: ['id', 'nome','status_ativacao']
-                    }]
-                })
-                .then(result => {
-                    if (result) {
-                        res.json(result);
-                    } else {
-                        res.sendStatus(404);
-                    }
-                })
-                .catch(error => {
-                    res.status(412).json({
-                        msg: error.message
-                    });
-                });
+            controllers.servico(app, req.params.id, resp => {
+                res.json(resp)
+            });
         });
 };
