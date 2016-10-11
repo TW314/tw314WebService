@@ -1,4 +1,7 @@
-module.exports.list = (Empresa, RamoAtividade, callback) => {
+module.exports.list = (app, callback) => {
+
+    const Empresa = app.db.models.empresa;
+    const RamoAtividade = app.db.models.ramo_atividade;
 
     Empresa.findAll({
             where: {},
@@ -24,7 +27,10 @@ module.exports.list = (Empresa, RamoAtividade, callback) => {
         });
 };
 
-module.exports.empresa = (id, Empresa, RamoAtividade, callback) => {
+module.exports.empresa = (app, id, callback) => {
+
+    const Empresa = app.db.models.empresa;
+    const RamoAtividade = app.db.models.ramo_atividade;
 
     Empresa.findOne({
             where: {
