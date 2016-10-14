@@ -1,8 +1,8 @@
-module.exports.cadastraRamoAtividade = (body, params, app, callback) => {
+module.exports.cadastraUsuario = (body, params, app, callback) => {
 
-    const RamoAtividade = app.db.models.ramo_atividade;
+    const Usuario = app.db.models.usuario;
 
-    RamoAtividade.create(body, params)
+    Usuario.create(body, params)
         .then(result => {
             if (result) {
                 callback(result);
