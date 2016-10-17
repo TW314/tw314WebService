@@ -1,16 +1,11 @@
 module.exports = app => {
-  const Empresa = app.db.models.empresa;
 
-  app.route("/atualizaInforacoesEmpresa/:id")
-    .put((req, res) => {
-      Perfil.update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(result => res.sendStatus(204))
-      .catch(error => {
-        res.status(412).json({msg: error.message});
-      });
-    })
+    const controllers = app.controllers.atualizaInformacoesEmpresaController;
+
+    app.route("/atualizaInformacoesEmpresa/:id")
+        .put((req, res) => {
+            controllers.atualizaInformacoesEmpresa(req.body, req.params, app, resp => {
+                res.json(resp)
+            });
+        })
 };
