@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.consultaInformacoesUsuariosPorPerfilController
+    const controllers = app.controllers.consultaInformacoesUsuariosPorPerfilController;
 
     app.route("/consultaUsuariosPorPerfil/:id")
         .get((req, res) => {

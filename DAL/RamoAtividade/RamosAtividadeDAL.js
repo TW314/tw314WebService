@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports.list = (app, callback) => {
+module.exports.obterRamoAtividadeOrdenadoPorNome = (app, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
@@ -34,7 +34,7 @@ module.exports.list = (app, callback) => {
         });
 };
 
-module.exports.ramoAtividade = (app, id, callback) => {
+module.exports.obterRamoAtividadePorId = (app, id, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
@@ -55,6 +55,48 @@ module.exports.ramoAtividade = (app, id, callback) => {
             }],
             group: ['id', 'nome', 'descricao', 'status_ativacao']
         })
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+};
+
+module.exports.cadastraRamoAtividade = (body, params, app, callback) => {
+
+    const RamoAtividade = app.db.models.ramo_atividade;
+
+    RamoAtividade.create(body, params)
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+};
+
+module.exports.atualizaInformacoesRamoAtividade = (body, params, app, callback) => {
+
+    const RamoAtividade = app.db.models.ramoAtividade;
+
+    RamoAtividade.update(body, {
+        where: {
+            id: params.id
+        }
+    })
         .then(result => {
             if (result) {
                 callback(result);

@@ -4,9 +4,8 @@ module.exports = app => {
 
     app.route("/cadastraEmpresa") //middelware de pre-execucao das rotas
         .post((req, res) => {
-                controllers.cadastraEmpresa(req.body, req.params, app, resp => {
-                    res.json(resp)
-                });
-            );
-        });
+            controllers.cadastraEmpresa(req.body, req.params, app, resp => {
+                res.json(resp)
+            });
+        })
 };
