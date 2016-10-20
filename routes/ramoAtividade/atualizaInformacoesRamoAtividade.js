@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.atualizaInformacoesRamoAtividadeController;
+    const controllers = app.controllers.ramoAtividade.atualizaInformacoesRamoAtividadeController;
 
     app.route("/atualizaInformacoesRamoAtividade/:id")
         .put((req, res) => {

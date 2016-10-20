@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.atualizaInformacoesUsuarioController;
+    const controllers = app.controllers.usuario.atualizaInformacoesUsuarioController;
 
     app.route("/atualizaInformacoesUsuario/:id")
         .put((req, res) => {

@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.cadastraServicoController;
+    const controllers = app.controllers.servico.cadastraServicoController;
 
     app.route("/cadastraServico") //middelware de pre-execucao das rotas
         .post((req, res) => {

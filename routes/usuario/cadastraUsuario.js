@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.cadastraUsuarioController;
+    const controllers = app.controllers.usuario.cadastraUsuarioController;
 
     app.route("/cadastraUsuario") //middelware de pre-execucao das rotas
         .post((req, res) => {

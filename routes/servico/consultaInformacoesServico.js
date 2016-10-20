@@ -1,17 +1,17 @@
 module.exports = app => {
 
-    const controllers = app.controllers.consultaInformacoesEmpresaController;
+    const controllers = app.controllers.servico.consultaInformacoesServicoController;
 
-    app.route("/consultaInformacoesEmpresa/")
+    app.route("/consultaInformacoesServico/")
         .get((req, res) => {
             controllers.list(app, resp => {
                 res.json(resp)
             });
         });
 
-    app.route("/consultaInformacoesEmpresa/:id")
+    app.route("/consultaInformacoesServico/:id")
         .get((req, res) => {
-            controllers.empresa(app, req.params.id, resp => {
+            controllers.servico(app, req.params.id, resp => {
                 res.json(resp)
             });
         });

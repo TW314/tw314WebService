@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    const controllers = app.controllers.consultaInformacoesRamosAtividadeController;
+    const controllers = app.controllers.ramoAtividade.consultaInformacoesRamosAtividadeController;
 
     app.route("/consultaInformacoesRamoAtividade/")
         .get((req, res) => {
