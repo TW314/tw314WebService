@@ -4,7 +4,7 @@ module.exports = app => {
 
     app.route("/servico/")
         .get((req, res) => {
-            controllers.list(app, resp => {
+            controllers.obterServicoOrdenadoPorNome(app, resp => {
                 res.json(resp)
             })
         })
@@ -16,12 +16,12 @@ module.exports = app => {
 
     app.route("/servico/:id")
         .get((req, res) => {
-            controllers.servico(app, req.params.id, resp => {
+            controllers.obterServicoPorId(app, req.params.id, resp => {
                 res.json(resp)
             })
         })
         .put((req, res) => {
-            controllers.atualizaInformacoesServico(req.body, req.params, app, resp => {
+            controllers.atualizaServico(req.body, req.params, app, resp => {
                 res.json(resp)
             })
         });

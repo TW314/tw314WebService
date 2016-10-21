@@ -4,7 +4,7 @@ exports.exports = app => {
 
     app.route("/empresa/")
         .get((req, res) => {
-            controllers.list(app, resp => {
+            controllers.obterEmpresaOrdenadoPorRazaoSocial(app, resp => {
                 res.json(resp)
             });
         })
@@ -17,12 +17,12 @@ exports.exports = app => {
 
     app.route("/empresa/:id")
         .get((req, res) => {
-            controllers.empresa(app, req.params.id, resp => {
+            controllers.obterEmpresaPorId(app, req.params.id, resp => {
                 res.json(resp)
             });
         })
         .put((req, res) => {
-            controllers.atualizaInformacoesEmpresa(req.body, req.params, app, resp => {
+            controllers.atualizaEmpresa(req.body, req.params, app, resp => {
                 res.json(resp)
             });
         })

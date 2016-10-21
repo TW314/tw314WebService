@@ -4,7 +4,7 @@ module.exports = app => {
 
     app.route("/ramoAtividade/")
         .get((req, res) => {
-            controllers.list(app, resp => {
+            controllers.obterRamoAtividadeOrdenadoPorNome(app, resp => {
                 res.json(resp)
             });
         })
@@ -16,12 +16,12 @@ module.exports = app => {
 
     app.route("/ramoAtividade/:id")
         .get((req, res) => {
-            controllers.ramoAtividade(app, req.params.id, resp => {
+            controllers.obterRamoAtividadePorId(app, req.params.id, resp => {
                 res.json(resp)
             });
         })
         .put((req, res) => {
-        controllers.atualizaInformacoesRamoAtividade(req.body, req.params, app, resp => {
+        controllers.atualizaRamoAtividade(req.body, req.params, app, resp => {
             res.json(resp)
         });
     })
