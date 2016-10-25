@@ -2,17 +2,17 @@ module.exports = app => {
 
     const controllers = app.controllers.ramoAtividade.ramoAtividadeController;
 
-    app.route("/ramoAtividade/")
+    app.route("/ramoAtividade")
         .get((req, res) => {
             controllers.obterRamoAtividadeOrdenadoPorNome(app, resp => {
                 res.json(resp)
             });
         })
         .post((req, res) => {
-        controllers.cadastraRamoAtividade(req.body, req.params, app, resp => {
-            res.json(resp)
-        });
-    });
+            controllers.cadastraRamoAtividade(req.body, req.params, app, resp => {
+                res.json(resp)
+            });
+        })
 
     app.route("/ramoAtividade/:id")
         .get((req, res) => {
@@ -21,8 +21,8 @@ module.exports = app => {
             });
         })
         .put((req, res) => {
-        controllers.atualizaRamoAtividade(req.body, req.params, app, resp => {
-            res.json(resp)
-        });
-    })
+            controllers.atualizaRamoAtividade(req.body, req.params, app, resp => {
+                res.json(resp)
+            });
+        })
 };

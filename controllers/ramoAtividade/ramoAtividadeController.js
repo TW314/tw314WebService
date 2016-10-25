@@ -1,4 +1,5 @@
-const Sequelize = require('sequelize');
+//const Sequelize = require('sequelize');
+import Sequelize from 'sequelize'
 
 module.exports.obterRamoAtividadeOrdenadoPorNome = (app, callback) => {
 
