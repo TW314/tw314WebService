@@ -4,7 +4,7 @@ module.exports = app => {
 
     app.route("/ticket/:id")
         .get((req, res) => {
-            controllers.obterTicketPorCodigoDeAcesso(app, resp => {
+            controllers.obterTicketPorCodigoDeAcesso(app, req.params.id, resp => {
                 res.json(resp)
             })
         })

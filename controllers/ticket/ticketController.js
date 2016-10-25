@@ -1,4 +1,4 @@
-module.exports.obterTicketPorCodigoDeAcesso = (app, callback) => {
+module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
 
 const Ticket = app.db.models.ticket;
 const RelacionamentoEmpresaServico = app.db.models.relacionamento_emp_svc;
@@ -8,7 +8,7 @@ const StatusTicket = app.db.models.status_ticket
 
 Ticket.findOne({
         where: {
-            codigo_acesso: req.params.id
+            codigo_acesso: id
         },
         attributes: ['numero_ticket'],
         include: [{
