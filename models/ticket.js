@@ -5,7 +5,7 @@ module.exports = (sequelize, DataType) => {
             type: DataType.STRING,
             primaryKey: true
         },
-        
+
         numero_ticket: {
             type: DataType.INTEGER,
             allowNull: false,
@@ -18,6 +18,14 @@ module.exports = (sequelize, DataType) => {
             type: DataType.DATE,
             defaultValue: DataType.NOW,
             primaryKey: true
+        },
+
+        prioridade: {
+            type: DataType.ENUM('Normal', 'Prioritario'),
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         }
     }, {
         classMethods: {
