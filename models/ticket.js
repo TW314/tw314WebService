@@ -1,23 +1,23 @@
 module.exports = (sequelize, DataType) => {
 
     const Ticket = sequelize.define("ticket", {
+        codigo_acesso: {
+            type: DataType.STRING,
+            primaryKey: true
+        },
+        
         numero_ticket: {
             type: DataType.INTEGER,
-            primaryKey: true
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
 
         data_hora_emissao: {
             type: DataType.DATE,
             defaultValue: DataType.NOW,
             primaryKey: true
-        },
-
-        codigo_acesso: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
         }
     }, {
         classMethods: {
@@ -34,10 +34,10 @@ module.exports = (sequelize, DataType) => {
                     //onDelete: 'CASCADE'
                 });
                 Ticket.belongsTo(models.relacionamento_emp_svc, {
-                  foreignKey: {
-                      name: "empresaId",
-                      allowNull: false
-                  },
+                    foreignKey: {
+                        name: "empresaId",
+                        allowNull: false
+                    },
                     targetKey: "empresaId"
                 });
                 Ticket.belongsTo(models.relacionamento_emp_svc, {
