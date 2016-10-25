@@ -1,8 +1,8 @@
-exports.exports = app => {
+module.exports = app => {
 
     const controllers = app.controllers.empresa.empresaController;
 
-    app.route("/empresa/")
+    app.route("/empresa")
         .get((req, res) => {
             controllers.obterEmpresaOrdenadoPorRazaoSocial(app, resp => {
                 res.json(resp)
