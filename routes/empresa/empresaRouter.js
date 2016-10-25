@@ -1,6 +1,6 @@
 exports.exports = app => {
 
-    const controllers = app.controllers.empresa.consultaInformacoesEmpresaController;
+    const controllers = app.controllers.empresa.empresaController;
 
     app.route("/empresa/")
         .get((req, res) => {
