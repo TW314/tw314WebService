@@ -8,7 +8,7 @@ module.exports = app => {
         .get((req, res) => {
             Ticket.findOne({
                     where: {
-                        numero_ticket: req.params.id
+                        codigo_acesso: req.params.id
                     },
                     attributes: ['numero_ticket'],
                     include: [{
