@@ -58,16 +58,12 @@ module.exports.obterContagemEmpresaRamoAtividade = (app, callback) => {
         });
 };
 
-module.exports.obterRamoAtividadeOrdenadoPorNome = (app, id, callback) => {
+module.exports.obterRamoAtividadeOrdenadoPorNome = (app, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
     const Empresa = app.db.models.empresa;
-    RamoAtividade.findAll({
-            where: {
-                id: id
-            }
-        })
+    RamoAtividade.findAll({})
         .then(result => {
             if (result) {
                 callback(result);

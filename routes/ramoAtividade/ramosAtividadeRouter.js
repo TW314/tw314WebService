@@ -4,7 +4,7 @@ module.exports = app => {
 
     app.route("/ramoAtividade")
         .get((req, res) => {
-            controllers.obterRamoAtividadeOrdenadoPorNome(app, req.params.id, resp => {
+            controllers.obterRamoAtividadeOrdenadoPorNome(app, resp => {
                 res.json(resp)
             });
         })
