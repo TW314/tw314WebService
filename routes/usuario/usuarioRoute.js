@@ -1,30 +1,20 @@
 module.exports = app => {
 
-    const controllers = app.controllers.usuario.consultaInformacoesUsuariosPorPerfilController
+    const controllers = app.controllers.usuario.usuarioController
 
-    app.route("/consultaUsuariosPorPerfil/:id")
+    app.route("/consultaUsuarioPorPerfil/:id")
         .get((req, res) => {
             controllers.obterUsuarioPorPerfil(app, req.params.id, resp => {
                 res.json(resp)
             });
         });
-};
 
-module.exports = app => {
-
-    const controllers = app.controllers.usuario.consultaInformacoesUsuarioPorIdController;
-
-    app.route("/consultaInformacoesUsuarioPorId/:id")
+    app.route("/consultaUsuarioPorId/:id")
         .get((req, res) => {
             controllers.obterUsuarioPorId(app, req.params.id, resp => {
                 res.json(resp)
             });
         });
-};
-
-module.exports = app => {
-
-    const controllers = app.controllers.usuario.cadastraUsuarioController;
 
     app.route("/cadastraUsuario") //middelware de pre-execucao das rotas
         .post((req, res) => {
@@ -32,13 +22,8 @@ module.exports = app => {
                 res.json(resp)
             });
         });
-};
 
-module.exports = app => {
-
-    const controllers = app.controllers.usuario.atualizaInformacoesUsuarioController;
-
-    app.route("/atualizaInformacoesUsuario/:id")
+    app.route("/atualizaUsuario/:id")
         .put((req, res) => {
             controllers.atualizaUsuario(req.body, req.params, app, resp => {
                 res.json(resp)
