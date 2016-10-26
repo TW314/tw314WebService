@@ -15,11 +15,11 @@ module.exports = (sequelize, DataType) => {
         },
 
         descricao: {
-          type: DataType.STRING,
-          allowNull: false,
-          validate: {
-              notEmpty: true
-          }
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
 
         status_ativacao: {
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 RamoAtividade.hasMany(models.servico);

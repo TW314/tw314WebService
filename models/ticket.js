@@ -28,6 +28,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 Ticket.belongsTo(models.status_ticket, {

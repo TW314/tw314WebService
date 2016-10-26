@@ -22,6 +22,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 StatusChamado.hasMany(models.chamado, {

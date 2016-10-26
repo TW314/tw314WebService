@@ -39,6 +39,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 Chamado.belongsTo(models.usuario, {

@@ -22,6 +22,7 @@ module.exports = (sequelize, DataType) => {
         }
 
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => { //permite realizar uma associacao entre os modelos
                 Atendimento.belongsTo(models.ticket, { //estabelecendo o relacionamento

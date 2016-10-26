@@ -8,6 +8,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 RelacionamentoEmpresaServico.belongsTo(models.servico, {

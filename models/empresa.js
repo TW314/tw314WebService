@@ -144,6 +144,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: models => {
                 Empresa.belongsTo(models.ramo_atividade, {
@@ -152,7 +153,9 @@ module.exports = (sequelize, DataType) => {
                     }
                     //onDelete: 'CASCADE'
                 });
-                Empresa.belongsToMany(models.servico, { through: models.relacionamento_emp_svc }); //atraves da tabela de relacionamento_emp_svc
+                Empresa.belongsToMany(models.servico, {
+                    through: models.relacionamento_emp_svc
+                }); //atraves da tabela de relacionamento_emp_svc
                 Empresa.hasMany(models.usuario); //Uma empresa tem varios usuarios
             }
         }

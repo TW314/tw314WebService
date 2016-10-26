@@ -38,6 +38,7 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        freezeTableName: true,
         classMethods: {
             associate: (models) => {
                 Servico.belongsTo(models.ramo_atividade, {
@@ -45,7 +46,9 @@ module.exports = (sequelize, DataType) => {
                         allowNull: false
                     }
                 });
-                Servico.belongsToMany(models.empresa, { through: models.relacionamento_emp_svc });
+                Servico.belongsToMany(models.empresa, {
+                    through: models.relacionamento_emp_svc
+                });
             }
         }
     })
