@@ -16,7 +16,7 @@ module.exports = (sequelize, DataType) => {
 
         razao_social: {
             type: DataType.STRING(80),
-            unique, true,
+            unique: true,
             allowNull: false,
             validate: {
                 notEmpty: true
