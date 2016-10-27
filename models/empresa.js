@@ -16,6 +16,7 @@ module.exports = (sequelize, DataType) => {
 
         razao_social: {
             type: DataType.STRING(80),
+            unique, true,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataType) => {
 
         numero_cnpj: {
             type: DataType.STRING(14),
+            unique: true,
             allowNull: false,
             validate: {
                 notEmpty: true
