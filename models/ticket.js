@@ -6,6 +6,10 @@ module.exports = (sequelize, DataType) => {
             primaryKey: true
         },
 
+        numero_sequencial: {
+            type: DataType.INTEGER
+        },
+
         numero_ticket: {
             type: DataType.INTEGER,
             allowNull: false,
@@ -18,14 +22,6 @@ module.exports = (sequelize, DataType) => {
             type: DataType.DATE,
             defaultValue: DataType.NOW,
             primaryKey: true
-        },
-
-        prioridade: {
-            type: DataType.ENUM('Normal', 'Prioritario'),
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
         }
     }, {
         freezeTableName: true,
@@ -55,6 +51,11 @@ module.exports = (sequelize, DataType) => {
                         allowNull: false
                     },
                     targetKey: "servicoId"
+                });
+                Ticket.belongsTo(models.prioridade_ticket, {
+                    foreignKey: {
+                        allowNull: false
+                    }
                 });
             }
         }

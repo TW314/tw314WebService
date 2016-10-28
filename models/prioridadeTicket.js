@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-    const StatusTicket = sequelize.define("status_ticket", {
+    const PrioridadeTicket = sequelize.define("prioridade_ticket", {
         id: {
             type: DataType.INTEGER,
             primaryKey: true,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataType) => {
         freezeTableName: true,
         classMethods: {
             associate: (models) => {
-                StatusTicket.hasMany(models.ticket, {
+                PrioridadeTicket.hasMany(models.ticket, {
                     foreignKey: {
                         allowNull: false
                     }
@@ -33,5 +33,5 @@ module.exports = (sequelize, DataType) => {
             }
         }
     })
-    return StatusTicket;
+    return PrioridadeTicket;
 };
