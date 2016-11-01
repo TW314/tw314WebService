@@ -26,14 +26,14 @@ module.exports = app => {
             });
         })
 
-    app.route("/contagemServicoRamoAtividade")
+    app.route("/ramoAtividade/contagem/servico/")
         .get((req, res) => {
             controllers.obterContagemServicoRamoAtividade(app, resp => {
                 res.json(resp)
             });
         })
 
-    app.route("/contagemEmpresaRamoAtividade")
+    app.route("/ramoAtividade/contagem/empresa/")
         .get((req, res) => {
             controllers.obterContagemEmpresaRamoAtividade(app, resp => {
                 res.json(resp)
