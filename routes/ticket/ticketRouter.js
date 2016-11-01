@@ -7,5 +7,12 @@ module.exports = app => {
             controllers.obterTicketPorCodigoDeAcesso(app, req.params.id, resp => {
                 res.json(resp)
             })
-        })
-}
+        });
+
+    app.route("/ticket/gerar/:idEmpresa&:idServico&:idPrioritario")
+        .post((req, res) =>{
+            controllers.gerarTicket(app, req.params.idEmpresa, req.params.idServico, req.params.idPrioritario, resp => {
+                res.json(resp);
+            })
+        });
+};
