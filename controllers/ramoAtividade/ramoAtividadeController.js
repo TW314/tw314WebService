@@ -1,12 +1,9 @@
-//const Sequelize = require('sequelize');
 import Sequelize from 'sequelize'
 
 module.exports.obterContagemServicoRamoAtividade = (app, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
     const Servico = app.db.models.servico;
-    const Empresa = app.db.models.empresa;
-
 
     RamoAtividade.findAll({
             attributes: ['id', 'nome', 'descricao', 'status_ativacao', [Sequelize.fn('COUNT', Sequelize.col('servicos.id')), 'numeroServicos']],
@@ -33,7 +30,6 @@ module.exports.obterContagemServicoRamoAtividade = (app, callback) => {
 module.exports.obterContagemEmpresaRamoAtividade = (app, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
-    const Servico = app.db.models.servico;
     const Empresa = app.db.models.empresa;
 
     RamoAtividade.findAll({
@@ -81,8 +77,7 @@ module.exports.obterRamoAtividadeOrdenadoPorNome = (app, callback) => {
 module.exports.obterRamoAtividadePorId = (app, id, callback) => {
 
     const RamoAtividade = app.db.models.ramo_atividade;
-    const Servico = app.db.models.servico;
-    const Empresa = app.db.models.empresa;
+
     RamoAtividade.findOne({
             where: {
                 id: id
@@ -124,7 +119,7 @@ module.exports.atualizaRamoAtividade = (body, params, app, callback) => {
                 error: error.message
             });
         });
-};
+}
 
 module.exports.cadastraRamoAtividade = (body, params, app, callback) => {
 
@@ -143,4 +138,4 @@ module.exports.cadastraRamoAtividade = (body, params, app, callback) => {
                 error: error.message
             });
         });
-};
+}
