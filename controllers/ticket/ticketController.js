@@ -7,25 +7,25 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
     const StatusTicket = app.db.models.status_ticket;
 
     Ticket.findOne({
-            where: {
-                codigo_acesso: id
-            },
-            attributes: ['numero_ticket'],
+        where: {
+            codigo_acesso: id
+        },
+        attributes: ['numero_ticket'],
+        include: [{
+            model: StatusTicket,
+            attributes: ['id', 'nome']
+        }, {
+            model: RelacionamentoEmpresaServico,
+            attributes: ['status_ativacao'],
             include: [{
-                model: StatusTicket,
-                attributes: ['id', 'nome']
+                model: Servico,
+                attributes: ['id', 'nome', 'sigla']
             }, {
-                model: RelacionamentoEmpresaServico,
-                attributes: ['status_ativacao'],
-                include: [{
-                    model: Servico,
-                    attributes: ['id', 'nome', 'sigla']
-                }, {
-                    model: Empresa,
-                    attributes: ['id', 'razao_social']
-                }]
+                model: Empresa,
+                attributes: ['id', 'razao_social']
             }]
-        })
+        }]
+    })
         .then(result => {
             if (result) {
                 callback(result);
@@ -42,18 +42,18 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
 
 module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback) => {
 
-    const Ticket = app.db.models.ticket;
-
-    Ticket.query("SET @CODIGO_TICKET = NULL;                                           " +
-                 "SET @TICKET        = NULL;                                           " +
-                 "SET @ERRO          = 0;                                              " +
-                 "SET @MENSSAGEM     = NULL;                                           " +
-                 "CALL GERA_TICKET(?,?,?, @CODIGO_TICKET, @TICKET, @ERRO, @MENSSAGEM); " +
-                 "SELECT @CODIGO_TICKET, @TICKET, @ERRO, @MENSAGEM ", [idEmpresa, idServico, idPrioritario])
+    const query = "set @erro = 0, @codigo_ticket = 0, @ticket = 0, @mesnssagem = 0; call prc_gerar_ticket (:idEmpresa, :idServico, :idPrioritario, @codigo_ticket, @ticket, @erro, @menssagem); select @erro, @codigo_ticket, @ticket, @menssagem";
+    app.db.sequelize.query(query, {
+        replacements: {
+            idEmpresa: idEmpresa,
+            idServico: idServico,
+            idPrioritario: idPrioritario
+        }
+    })
         .then(result => {
+            console.log(result);
             if (result) {
-
-                callback(result);
+                callback(result[0][2]); // retorna apenas os valores OUT da procedure
             } else {
                 callback(404);
             }
