@@ -21,17 +21,17 @@ module.exports = app => {
             });
         })
         .put((req, res) => {
-            controllers.atualizaRamoAtividade(req.body, req.params, app, resp => {
+            controllers.atualizaRamoAtividade(req.body, req.params.id, app, resp => {
                 res.json(resp)
             });
-        })
+        });
 
     app.route("/ramoAtividade/contagem/servico/")
         .get((req, res) => {
             controllers.obterContagemServicoRamoAtividade(app, resp => {
                 res.json(resp)
             });
-        })
+        });
 
     app.route("/ramoAtividade/contagem/empresa/")
         .get((req, res) => {
