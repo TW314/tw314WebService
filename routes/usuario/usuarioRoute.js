@@ -1,10 +1,10 @@
 module.exports = app => {
 
-    const controllers = app.controllers.usuario.usuarioController
+    const controllers = app.controllers.usuario.usuarioController;
 
-    app.route("/usuario/perfil/:id")
+    app.route("/usuario/perfil/:empresa&:id")
         .get((req, res) => {
-            controllers.obterUsuarioPorPerfil(app, req.params.id, resp => {
+            controllers.obterUsuarioPorPerfil(app, req.params.id, req.params.empresa, resp => {
                 res.json(resp)
             });
         });

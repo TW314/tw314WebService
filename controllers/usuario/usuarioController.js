@@ -1,10 +1,11 @@
-module.exports.obterUsuarioPorPerfil = (app, id, callback) => {
+module.exports.obterUsuarioPorPerfil = (app, id, empresa, callback) => {
     const Usuario = app.db.models.usuario;
     const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
     Perfil.find({
             where: {
-                id: id
+                id: id,
+                empresa: empresa
             },
             attributes: ['id', 'nome'],
             include: [{
