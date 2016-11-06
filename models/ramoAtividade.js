@@ -33,8 +33,16 @@ module.exports = (sequelize, DataType) => {
         freezeTableName: true,
         classMethods: {
             associate: (models) => {
-                RamoAtividade.hasMany(models.servico);
-                RamoAtividade.hasMany(models.empresa);
+                RamoAtividade.hasMany(models.servico, {
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
+                RamoAtividade.hasMany(models.empresa, {
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
             }
         }
     })
