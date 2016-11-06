@@ -42,7 +42,7 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
 
 module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback) => {
 
-    const query = "set @erro = 0, @codigo_ticket = 0, @ticket = 0, @mesnssagem = 0; call prc_gerar_ticket (:idEmpresa, :idServico, :idPrioritario, @codigo_ticket, @ticket, @erro, @menssagem); select @erro, @codigo_ticket, @ticket, @menssagem";
+    const query = "set @erro = 0, @codigo_ticket = 0, @ticket = 0, @mensagem = 0; call prc_gerar_ticket (:idEmpresa, :idServico, :idPrioritario, @codigo_ticket, @ticket, @erro, @mensagem); select @erro, @codigo_ticket, @ticket, @mensagem";
     app.db.sequelize.query(query, {
         replacements: {
             idEmpresa: idEmpresa,
