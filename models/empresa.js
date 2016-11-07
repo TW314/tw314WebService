@@ -72,14 +72,6 @@ module.exports = (sequelize, DataType) => {
             }
         },
 
-        pais: {
-            type: DataType.STRING(100),
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
-
         telefone: {
             type: DataType.STRING(11)
         },
