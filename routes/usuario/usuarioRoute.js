@@ -9,9 +9,9 @@ module.exports = app => {
             });
         });
 
-    app.route("/usuario/perfil/:empresa&:id")
+    app.route("/usuario/empresa/:empresa&:perfil")
         .get((req, res) => {
-            controllers.obterUsuarioPorEmpresaPorPerfil(app, req.params.id, req.params.empresa, resp => {
+            controllers.obterUsuarioPorEmpresaPerfil(app, req.params.perfil, req.params.empresa, resp => {
                 res.json(resp)
             });
         });

@@ -26,25 +26,28 @@ module.exports.obterUsuarioPorPerfil = (app, id callback) => {
         });
 };
 
-module.exports.obterUsuarioPorEmpresaPorPerfil = (app, id, empresa, callback) => {
+module.exports.obterUsuarioPorEmpresaPerfil = (app, perfil, empresa, callback) => {
     const Usuario = app.db.models.usuario;
     const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
-    Perfil.find({
+
+    Usuario.find({
+        attributes: ['id', 'nome', 'email', 'status_ativacao'],
+        include: [{
+            model: Empresa,
+            attributes: ['id', 'razao_social', 'status_ativacao'],
             where: {
-                id: id,
-                empresa: empresa
-            },
+                id: empresa
+            }
+        }, {
+            model: Perfil,
             attributes: ['id', 'nome'],
-            include: [{
-                model: Usuario,
-                attributes: ['id', 'nome', 'email', 'status_ativacao'],
-                include: [{
-                    model: Empresa,
-                    attributes: ['id', 'razao_social', 'status_ativacao']
-                }]
-            }]
-        })
+            where: {
+                id: perfil
+            }
+        }
+        ]
+    })
         .then(result => {
             if (result) {
                 callback(result);
@@ -68,7 +71,7 @@ module.exports.obterUsuarioPorId = (app, id, callback) => {
         where: {
             id: id
         },
-        attributes: ['id','nome', 'email', 'status_ativacao'],
+        attributes: ['id', 'nome', 'email', 'status_ativacao'],
         include: [{
             model: Empresa,
             attributes: ['id', 'razao_social', 'status_ativacao']
@@ -111,7 +114,6 @@ module.exports.cadastraUsuario = (body, params, app, callback) => {
 };
 
 module.exports.atualizaUsuario = (body, params, app, callback) => {
-
     const Usuario = app.db.models.usuario;
 
     Usuario.update(body, {

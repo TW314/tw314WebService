@@ -98,15 +98,15 @@ module.exports.obterRamoAtividadePorId = (app, id, callback) => {
 };
 
 
-module.exports.atualizaRamoAtividade = (body, params, app, callback) => {
+module.exports.atualizaRamoAtividade = (body, id, app, callback) => {
 
-    const RamoAtividade = app.db.models.ramoAtividade;
+    const RamoAtividade = app.db.models.ramo_atividade;
 
     RamoAtividade.update(body, {
-            where: {
-                id: params.id
-            }
-        })
+        where: {
+            id: id
+        }
+    })
         .then(result => {
             if (result) {
                 callback(result);

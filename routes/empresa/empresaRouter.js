@@ -12,7 +12,7 @@ module.exports = app => {
             controllers.cadastraEmpresa(req.body, req.params, app, resp => {
                 res.json(resp)
             });
-        })
+        });
 
 
     app.route("/empresa/:id")
@@ -25,5 +25,18 @@ module.exports = app => {
             controllers.atualizaEmpresa(req.body, req.params, app, resp => {
                 res.json(resp)
             });
+        });
+
+
+    app.route("/empresa/cnpj/:cnpj")
+        .get((req, res) => {
+            controllers.obterEmpresaPorCNPJ(app, req.params.cnpj, resp => {
+                res.json(resp)
+            });
         })
+        .put((req, res) => {
+            controllers.atualizaEmpresa(req.body, req.params, app, resp => {
+                res.json(resp)
+            });
+        });
 };
