@@ -1,3 +1,31 @@
+module.exports.obterUsuarioPorPerfil = (app, id, callback) => {
+    const Usuario = app.db.models.usuario;
+    const Empresa = app.db.models.empresa;
+    const Perfil = app.db.models.perfil;
+    Perfil.find({
+            where: {
+                id: id
+            },
+            attributes: ['id', 'nome'],
+            include: [{
+                model: Usuario,
+                attributes: ['id', 'nome', 'email', 'status_ativacao']
+            }]
+        })
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+};
+
 module.exports.obterUsuarioPorEmpresaPerfil = (app, perfil, empresa, callback) => {
     const Usuario = app.db.models.usuario;
     const Empresa = app.db.models.empresa;
@@ -86,7 +114,6 @@ module.exports.cadastraUsuario = (body, params, app, callback) => {
 };
 
 module.exports.atualizaUsuario = (body, params, app, callback) => {
-
     const Usuario = app.db.models.usuario;
 
     Usuario.update(body, {
