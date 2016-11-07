@@ -21,7 +21,7 @@ module.exports = app => {
             })
         })
         .put((req, res) => {
-            controllers.atualizaServico(req.body, req.params, app, resp => {
+            controllers.atualizaServico(req.body, req.params.id, app, resp => {
                 res.json(resp)
             })
         });

@@ -75,13 +75,13 @@ module.exports.cadastraServico = (body, params, app, callback) => {
         });
 };
 
-module.exports.atualizaServico = (body, params, app, callback) => {
+module.exports.atualizaServico = (body, id, app, callback) => {
 
     const Servico = app.db.models.servico;
 
     Servico.update(body, {
         where: {
-            id: params.id
+            id: id
         }
     })
         .then(result => {
