@@ -1,4 +1,4 @@
-module.exports.obterUsuarioPorPerfil = (app, id callback) => {
+module.exports.obterUsuarioPorPerfil = (app, id, callback) => {
     const Usuario = app.db.models.usuario;
     const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
