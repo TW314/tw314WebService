@@ -48,6 +48,14 @@ module.exports = (sequelize, DataType) => {
             }
         },
 
+        bairro: {
+            type: DataType.STRING(100),
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+
         cidade: {
             type: DataType.STRING(100),
             allowNull: false,

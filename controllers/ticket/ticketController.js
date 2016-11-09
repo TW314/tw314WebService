@@ -53,7 +53,7 @@ module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback
         .then(result => {
             console.log(result);
             if (result) {
-                callback(result[0][2]); // retorna apenas os valores OUT da procedure
+                callback(result[0]); // retorna apenas os valores OUT da procedure
             } else {
                 callback(404);
             }
