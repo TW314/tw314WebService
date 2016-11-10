@@ -7,25 +7,25 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
     const StatusTicket = app.db.models.status_ticket;
 
     Ticket.findOne({
-        where: {
-            codigo_acesso: id
-        },
-        attributes: ['numero_ticket'],
-        include: [{
-            model: StatusTicket,
-            attributes: ['id', 'nome']
-        }, {
-            model: RelacionamentoEmpresaServico,
-            attributes: ['status_ativacao'],
+            where: {
+                codigo_acesso: id
+            },
+            attributes: ['numero_ticket'],
             include: [{
-                model: Servico,
-                attributes: ['id', 'nome', 'sigla']
+                model: StatusTicket,
+                attributes: ['id', 'nome']
             }, {
-                model: Empresa,
-                attributes: ['id', 'razao_social']
+                model: RelacionamentoEmpresaServico,
+                attributes: ['status_ativacao'],
+                include: [{
+                    model: Servico,
+                    attributes: ['id', 'nome', 'sigla']
+                }, {
+                    model: Empresa,
+                    attributes: ['id', 'razao_social']
+                }]
             }]
-        }]
-    })
+        })
         .then(result => {
             if (result) {
                 callback(result);
@@ -44,12 +44,12 @@ module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback
 
     const query = "set @erro = 0, @codigo_ticket = 0, @ticket = 0, @mensagem = 0; call prc_gerar_ticket (:idEmpresa, :idServico, :idPrioritario, @codigo_ticket, @ticket, @erro, @mensagem); select @erro, @codigo_ticket, @ticket, @mensagem";
     app.db.sequelize.query(query, {
-        replacements: {
-            idEmpresa: idEmpresa,
-            idServico: idServico,
-            idPrioritario: idPrioritario
-        }
-    })
+            replacements: {
+                idEmpresa: idEmpresa,
+                idServico: idServico,
+                idPrioritario: idPrioritario
+            }
+        })
         .then(result => {
             console.log(result);
             if (result) {
@@ -64,3 +64,26 @@ module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback
             })
         })
 };
+
+module.exports.atualizaStatusTicket = (body, id, app, callback) => {
+
+    const Ticket = app.db.models.ticket;
+
+    Ticket.update(body, {
+            where: {
+                codigo_acesso: id
+            }
+        })
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+}
