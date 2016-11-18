@@ -3,15 +3,15 @@ module.exports.obterUsuarioPorPerfil = (app, id, callback) => {
     const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
     Perfil.find({
-            where: {
-                id: id
-            },
-            attributes: ['id', 'nome'],
-            include: [{
-                model: Usuario,
-                attributes: ['id', 'nome', 'email', 'status_ativacao']
-            }]
-        })
+        where: {
+            id: id
+        },
+        attributes: ['id', 'nome'],
+        include: [{
+            model: Usuario,
+            attributes: ['id', 'nome', 'email', 'status_ativacao']
+        }]
+    })
         .then(result => {
             if (result) {
                 callback(result);
@@ -46,6 +46,39 @@ module.exports.obterUsuarioPorEmpresaPerfil = (app, perfil, empresa, callback) =
                 id: perfil
             }
         }
+        ]
+    })
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+};
+
+module.exports.obterUsuarios = (app, callback) => {
+    const Usuario = app.db.models.usuario;
+    const Empresa = app.db.models.empresa;
+    const Perfil = app.db.models.perfil;
+
+    Usuario.findAll({
+        where: {},
+        attributes: ['id', 'nome', 'email', 'status_ativacao', 'senha'],
+        include: [
+            {
+                model: Empresa,
+                attributes: ['id', 'razao_social', 'status_ativacao'],
+            },
+            {
+                model: Perfil,
+                attributes: ['id', 'nome'],
+            }
         ]
     })
         .then(result => {

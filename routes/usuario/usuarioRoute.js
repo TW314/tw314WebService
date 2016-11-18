@@ -29,6 +29,11 @@ module.exports = app => {
         });
 
     app.route("/usuario") //middelware de pre-execucao das rotas
+        .get((req, res) => {
+            controllers.obterUsuarios(app, resp => {
+                res.json(resp)
+            })
+        })
         .post((req, res) => {
             controllers.cadastraUsuario(req.body, req.params, app, resp => {
                 res.json(resp)
