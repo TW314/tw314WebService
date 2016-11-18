@@ -16,6 +16,7 @@ module.exports = (sequelize, DataType) => {
 
         email: {
             type: DataType.STRING(100),
+            unique: true,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -67,6 +68,6 @@ module.exports = (sequelize, DataType) => {
                 Usuario.hasMany(models.comentario);
             }
         }
-    })
+    });
     return Usuario;
 };
