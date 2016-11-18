@@ -10,7 +10,7 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
             where: {
                 codigo_acesso: id
             },
-            attributes: ['numero_ticket'],
+            attributes: ['codigo_acesso', 'numero_ticket'],
             include: [{
                 model: StatusTicket,
                 attributes: ['id', 'nome']
