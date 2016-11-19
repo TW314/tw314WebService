@@ -1,6 +1,5 @@
 module.exports.obterUsuarioPorPerfil = (app, id, callback) => {
     const Usuario = app.db.models.usuario;
-    const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
     Perfil.find({
         where: {
@@ -31,7 +30,8 @@ module.exports.obterUsuarioPorEmpresaPerfil = (app, perfil, empresa, callback) =
     const Empresa = app.db.models.empresa;
     const Perfil = app.db.models.perfil;
 
-    Usuario.find({
+    Usuario.findAll({
+        where: {},
         attributes: ['id', 'nome', 'email', 'status_ativacao'],
         include: [{
             model: Empresa,
