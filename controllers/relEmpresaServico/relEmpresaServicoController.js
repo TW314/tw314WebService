@@ -65,13 +65,13 @@ module.exports.obterServicoPorEmpresa = (app, empresa, callback) => {
         },
         include: [{
             model: Empresa,
-            attributes: ['id', 'nome_fantasia', 'razao_social', 'status_ativacao'],
+            attributes: ['id', 'nome_fantasia', 'razao_social'],
             where: {
                 id: empresa
             }
         }, {
             model: Servico,
-            attributes: ['id', 'nome'],
+            attributes: ['id', 'nome', 'descricao'],
         }
         ]
     })
@@ -87,4 +87,32 @@ module.exports.obterServicoPorEmpresa = (app, empresa, callback) => {
                 error: error.message
             });
         });
+};
+
+// deleta da tabela de relacionamento, usando as duas fk
+module.exports.apagarRelacionamentoEmpresaServico = (app, empresa, servico, callback) => {
+
+    const RelacionamentoEmpresaServico = app.db.models.relacionamento_emp_svc;
+
+    RelacionamentoEmpresaServico.destroy({
+            where: {
+                empresaId: empresa,
+                servicoId: servico
+            }
+        }
+    ).then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        }
+    ).catch(error => {
+            callback(
+                {
+                    error: error.message
+                }
+            );
+        }
+    );
 };

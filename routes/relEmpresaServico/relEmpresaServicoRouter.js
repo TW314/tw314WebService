@@ -25,4 +25,11 @@ module.exports = app => {
                 res.json(resp)
             })
         });
+
+    app.route("/servicos_empresa/:empresa&:servico")
+        .delete((req, res) => {
+            controllers.apagarRelacionamentoEmpresaServico(app, req.params.empresa, req.params.servico, resp => {
+                res.json(resp)
+            })
+        })
 };
