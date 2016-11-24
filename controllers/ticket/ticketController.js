@@ -16,7 +16,7 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
                 attributes: ['id', 'nome']
             }, {
                 model: RelacionamentoEmpresaServico,
-                attributes: ['status_ativacao'],
+                attributes: [],
                 include: [{
                     model: Servico,
                     attributes: ['id', 'nome', 'sigla']
@@ -86,4 +86,31 @@ module.exports.atualizaStatusTicket = (body, id, app, callback) => {
                 error: error.message
             });
         });
-}
+};
+
+module.exports.obterTicketOrdemSequencial = (app, statusTicketId, empresaId, servicoId, data_hora_emissao, callback) => {
+
+    const query = "select * from ticket where date(data_hora_emissao) = :data_hora_emissao and empresaId = :empresaId  and servicoId = :servicoId  and statusTicketId = :statusTicketId order by numero_sequencial ASC limit 6;";
+
+    app.db.sequelize.query(query, {
+        replacements: {
+            statusTicketId: statusTicketId,
+            empresaId: empresaId,
+            servicoId: servicoId,
+            data_hora_emissao: data_hora_emissao
+        }
+    })
+        .then(result => {
+            console.log(result);
+            if (result) {
+                callback(result[0]); // não duplica os resultados
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            })
+        });
+};

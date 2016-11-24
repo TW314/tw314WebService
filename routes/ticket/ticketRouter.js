@@ -14,6 +14,13 @@ module.exports = app => {
             })
         });
 
+    app.route("/ticket/fila/:statusId&:empresa&:servico&:data")
+        .get((req, res) => {
+            controllers.obterTicketOrdemSequencial(app, req.params.statusId, req.params.empresa, req.params.servico, req.params.data, resp => {
+                res.json(resp)
+            })
+        });
+
     app.route("/ticket/gerar/:idEmpresa&:idServico&:idPrioritario")
         .post((req, res) =>{
             controllers.gerarTicket(app, req.params.idEmpresa, req.params.idServico, req.params.idPrioritario, resp => {
