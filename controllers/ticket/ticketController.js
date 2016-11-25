@@ -16,7 +16,6 @@ module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
                 attributes: ['id', 'nome']
             }, {
                 model: RelacionamentoEmpresaServico,
-                attributes: [],
                 include: [{
                     model: Servico,
                     attributes: ['id', 'nome', 'sigla']
