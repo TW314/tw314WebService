@@ -2,6 +2,13 @@ module.exports = app => {
 
     const controllers = app.controllers.usuario.usuarioController;
 
+    app.route("/login/:email")
+        .get((req, res) => {
+            controllers.obterUsuarioPorEmail(app, req.params.email, resp => {
+                res.json(resp)
+            });
+        });
+
     app.route("/usuario/perfil/:id")
         .get((req, res) => {
             controllers.obterUsuarioPorPerfil(app, req.params.id, resp => {
