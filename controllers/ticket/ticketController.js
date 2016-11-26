@@ -144,23 +144,24 @@ module.exports.obterUmTicketPorStatus = (app, statusTicketId, empresaId, servico
         });
 };
 
-module.exports.obterPessoasNaFrente = (app, numero_sequencial,  statusTicketId, empresaId, servicoId, data_hora_emissao, callback) => {
+module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
 
-    const query = "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < :numero_sequencial and date(data_hora_emissao) = date(:data_hora_emissao) and ticket.empresaId = :empresaId and ticket.servicoId = :servicoId and statusTicketId = :statusTicketId";
+    const query = "" +
+        "SELECT numero_sequencial INTO @sequencial FROM ticket WHERE codigo_acesso = :codigo; " +
+        "SELECT data_hora_emissao INTO @data_hora FROM ticket WHERE codigo_acesso = :codigo; " +
+        "SELECT empresaId INTO @empresa FROM ticket WHERE codigo_acesso = :codigo; " +
+        "SELECT servicoId INTO @servico FROM ticket WHERE codigo_acesso = :codigo; " +
+        "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < @sequencial and date(data_hora_emissao) = date('2016-11-23') and empresaId = @empresa and servicoId = @servico and statusTicketId = 1;";
 
     app.db.sequelize.query(query, {
         replacements: {
-            numero_sequencial: numero_sequencial,
-            statusTicketId: statusTicketId,
-            empresaId: empresaId,
-            servicoId: servicoId,
-            data_hora_emissao: data_hora_emissao
+            codigo: codigo
         }
     })
         .then(result => {
-            console.log(result[0]);
+            console.log(result);
             if (result) {
-                callback(result[0]); // não duplica os resultados
+                callback(result[0][4]); // não duplica os resultados
             } else {
                 callback(404);
             }

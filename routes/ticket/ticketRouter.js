@@ -28,9 +28,9 @@ module.exports = app => {
             })
         });
 
-    app.route("/ticket/pessoas/:sequencial&:statusId&:empresa&:servico&:data")
+    app.route("/ticket/pessoas/:codigo")
         .get((req, res) => {
-            controllers.obterPessoasNaFrente(app, req.params.sequencial, req.params.statusId, req.params.empresa, req.params.servico, req.params.data, resp => {
+            controllers.obterPessoasNaFrente(app, req.params.codigo, resp => {
                 res.json(resp)
             })
         });
