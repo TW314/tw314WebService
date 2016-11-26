@@ -28,6 +28,13 @@ module.exports = app => {
             })
         });
 
+    app.route("/ticket/pessoas/:sequencial&:statusId&:empresa&:servico&:data")
+        .get((req, res) => {
+            controllers.obterPessoasNaFrente(app, req.params.sequencial, req.params.statusId, req.params.empresa, req.params.servico, req.params.data, resp => {
+                res.json(resp)
+            })
+        });
+
     app.route("/ticket/gerar/:idEmpresa&:idServico&:idPrioritario")
         .post((req, res) =>{
             controllers.gerarTicket(app, req.params.idEmpresa, req.params.idServico, req.params.idPrioritario, resp => {

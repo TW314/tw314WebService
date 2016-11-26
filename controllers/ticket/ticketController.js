@@ -143,3 +143,31 @@ module.exports.obterUmTicketPorStatus = (app, statusTicketId, empresaId, servico
             })
         });
 };
+
+module.exports.obterPessoasNaFrente = (app, numero_sequencial,  statusTicketId, empresaId, servicoId, data_hora_emissao, callback) => {
+
+    const query = "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < :numero_sequencial and date(data_hora_emissao) = date(:data_hora_emissao) and ticket.empresaId = :empresaId and ticket.servicoId = :servicoId and statusTicketId = :statusTicketId";
+
+    app.db.sequelize.query(query, {
+        replacements: {
+            numero_sequencial: numero_sequencial,
+            statusTicketId: statusTicketId,
+            empresaId: empresaId,
+            servicoId: servicoId,
+            data_hora_emissao: data_hora_emissao
+        }
+    })
+        .then(result => {
+            console.log(result[0]);
+            if (result) {
+                callback(result[0]); // não duplica os resultados
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            })
+        });
+};
