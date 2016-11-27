@@ -151,7 +151,7 @@ module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
         "SELECT data_hora_emissao INTO @data_hora FROM ticket WHERE codigo_acesso = :codigo; " +
         "SELECT empresaId INTO @empresa FROM ticket WHERE codigo_acesso = :codigo; " +
         "SELECT servicoId INTO @servico FROM ticket WHERE codigo_acesso = :codigo; " +
-        "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < @sequencial and date(data_hora_emissao) = date('2016-11-23') and empresaId = @empresa and servicoId = @servico and statusTicketId = 1;";
+        "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < @sequencial and date(data_hora_emissao) = date(@data_hora) and empresaId = @empresa and servicoId = @servico and statusTicketId = 1;";
 
     app.db.sequelize.query(query, {
         replacements: {
