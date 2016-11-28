@@ -127,6 +127,38 @@ module.exports.obterUsuarioPorId = (app, id, callback) => {
         });
 };
 
+module.exports.obterUsuarioPorEmail = (app, email, callback) => {
+    const Usuario = app.db.models.usuario;
+    const Perfil = app.db.models.perfil;
+    const Empresa = app.db.models.empresa;
+
+    Usuario.findOne({
+        where: {
+            email: email
+        },
+        attributes: ['id', 'nome', 'email', 'status_ativacao', 'senha'],
+        include: [{
+            model: Empresa,
+            attributes: ['id', 'razao_social', 'nome_fantasia', 'status_ativacao']
+        }, {
+            model: Perfil,
+            attributes: ['id', 'nome']
+        }]
+    })
+        .then(result => {
+            if (result) {
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
+        });
+};
+
 module.exports.cadastraUsuario = (body, params, app, callback) => {
 
     const Usuario = app.db.models.usuario;
