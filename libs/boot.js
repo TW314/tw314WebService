@@ -7,7 +7,9 @@ module.exports = app => {
         }));
 
         io.on('connection', function(socket){
+          console.log('Conectou');
             socket.on('proximo', () => {
+              console.log('proximo');
                 io.emit('proximo');
             });
         });
