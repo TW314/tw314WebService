@@ -7,8 +7,8 @@ module.exports = app => {
         }));
 
         io.on('connection', function(socket){
-            socket.on('proximo', () => {
-                io.emit('proximo');
+            socket.on('proximo', (empresa, servico) => {
+                io.emit('proximo', empresa, servico);
             });
         });
     });
