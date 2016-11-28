@@ -52,7 +52,7 @@ module.exports.gerarTicket = (app, idEmpresa, idServico, idPrioritario, callback
         .then(result => {
             console.log(result);
             if (result) {
-                callback(result[0]); // retorna apenas os valores OUT da procedure
+                callback(result[0][2][0]); // retorna apenas os valores OUT da procedure
             } else {
                 callback(404);
             }
@@ -158,7 +158,7 @@ module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
         .then(result => {
             console.log(result);
             if (result) {
-                callback(result[0][4]); // não duplica os resultados
+                callback(result[0][4][0]); // não duplica os resultados
             } else {
                 callback(404);
             }
