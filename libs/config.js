@@ -8,5 +8,5 @@ module.exports = {
             multipleStatements: true
         }
     },
-
+    secret: 'TMEIA'
 };
