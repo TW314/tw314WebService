@@ -8,6 +8,7 @@ consign() //modulo que permite carregar e injetar deṕendencias
     .then("db.js") //carregando o db.js (a conexao com o banco)
     .then("libs/middlewares.js")
     .then("controllers")
-    .then("routes") //carregando as rotas no modulo consign
+    .then("routes") //carregando as rotas no modulo
     .then("libs/boot.js") //carregando boot.js
+    .then("socket")
     .into(app);

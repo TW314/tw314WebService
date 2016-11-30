@@ -41,4 +41,11 @@ module.exports = app => {
                 res.json(resp);
             })
         });
+
+    app.route("/ticket/status/:id&:empresa&:servico")
+      .put((req, res) => {
+          controllers.atualizaStatusTicketWeb(req.body, req.params.id, req.params.empresa, req.params.servico, app, resp => {
+              res.json(resp)
+          })
+      });
 };

@@ -1,3 +1,5 @@
+import socket from "socket.io"
+
 module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
 
     const Ticket = app.db.models.ticket;
@@ -167,5 +169,30 @@ module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
             callback({
                 error: error.message
             })
+        });
+};
+
+
+module.exports.atualizaStatusTicketWeb = (body, id, empresa, servico, app, callback) => {
+
+    const Ticket = app.db.models.ticket;
+
+    Ticket.update(body, {
+            where: {
+                codigo_acesso: id
+            }
+        })
+        .then(result => {
+            if (result) {
+
+                callback(result);
+            } else {
+                callback(404);
+            }
+        })
+        .catch(error => {
+            callback({
+                error: error.message
+            });
         });
 };
