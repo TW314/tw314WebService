@@ -1,5 +1,3 @@
-import socket from "socket.io"
-
 module.exports.obterTicketPorCodigoDeAcesso = (app, id, callback) => {
 
     const Ticket = app.db.models.ticket;
@@ -145,13 +143,15 @@ module.exports.obterUmTicketPorStatus = (app, statusTicketId, empresaId, servico
 
 module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
 
-    const query = "" +
+    /*const query = "" +
         "SELECT numero_sequencial INTO @sequencial FROM ticket WHERE codigo_acesso = :codigo; " +
         "SELECT data_hora_emissao INTO @data_hora FROM ticket WHERE codigo_acesso = :codigo; " +
         "SELECT empresaId INTO @empresa FROM ticket WHERE codigo_acesso = :codigo; " +
         "SELECT servicoId INTO @servico FROM ticket WHERE codigo_acesso = :codigo; " +
         "select count(codigo_acesso) as pessoas_na_frente from ticket where numero_sequencial < @sequencial and date(data_hora_emissao) = date(@data_hora) and empresaId = @empresa and servicoId = @servico and statusTicketId = 1;";
+    */
 
+    const query = "SELECT count(tck.codigo_acesso) AS pessoas_na_frente FROM ticket AS tkt LEFT OUTER JOIN ticket AS tck ON tck.servicoId = tkt.servicoId AND tck.empresaId = tkt.empresaId AND tck.numero_sequencial < tkt.numero_sequencial AND DATE(tck.data_hora_emissao) = DATE(tkt.data_hora_emissao) WHERE tck.statusTicketId = 1 AND tkt.codigo_acesso = :codigo;";
     app.db.sequelize.query(query, {
         replacements: {
             codigo: codigo
@@ -160,7 +160,7 @@ module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
         .then(result => {
             console.log(result);
             if (result) {
-                callback(result[0][4][0]); // não duplica os resultados
+                callback(result[0][0]); // não duplica os resultados
             } else {
                 callback(404);
             }
@@ -169,30 +169,5 @@ module.exports.obterPessoasNaFrente = (app, codigo, callback) => {
             callback({
                 error: error.message
             })
-        });
-};
-
-
-module.exports.atualizaStatusTicketWeb = (body, id, empresa, servico, app, callback) => {
-
-    const Ticket = app.db.models.ticket;
-
-    Ticket.update(body, {
-            where: {
-                codigo_acesso: id
-            }
-        })
-        .then(result => {
-            if (result) {
-
-                callback(result);
-            } else {
-                callback(404);
-            }
-        })
-        .catch(error => {
-            callback({
-                error: error.message
-            });
         });
 };
